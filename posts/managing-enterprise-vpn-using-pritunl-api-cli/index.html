@@ -1,0 +1,267 @@
+<!doctype html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.4.1" /><meta property="og:title" content="Managing Enterprise VPN using Pritunl API CLI" /><meta property="og:locale" content="en" /><meta name="description" content="Introduction" /><meta property="og:description" content="Introduction" /><link rel="canonical" href="https://nathaniel.varona.me/posts/managing-enterprise-vpn-using-pritunl-api-cli/" /><meta property="og:url" content="https://nathaniel.varona.me/posts/managing-enterprise-vpn-using-pritunl-api-cli/" /><meta property="og:site_name" content="Nathaniel Varona" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2023-04-18T00:00:00+08:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="Managing Enterprise VPN using Pritunl API CLI" /><meta name="twitter:site" content="@nathanielvarona" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-08-28T12:32:23+08:00","datePublished":"2023-04-18T00:00:00+08:00","description":"Introduction","headline":"Managing Enterprise VPN using Pritunl API CLI","mainEntityOfPage":{"@type":"WebPage","@id":"https://nathaniel.varona.me/posts/managing-enterprise-vpn-using-pritunl-api-cli/"},"url":"https://nathaniel.varona.me/posts/managing-enterprise-vpn-using-pritunl-api-cli/"}</script><title>Managing Enterprise VPN using Pritunl API CLI | Nathaniel Varona</title><link rel="icon" type="image/png" href="/assets/img/favicons/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/assets/img/favicons/favicon.svg"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="/assets/css/jekyll-theme-chirpy.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.36.4/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css"> <script src="/assets/js/dist/theme.min.js"></script> <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.18/dayjs.min.js,npm/dayjs@1.11.18/locale/en.js,npm/dayjs@1.11.18/plugin/relativeTime.js,npm/dayjs@1.11.18/plugin/localizedFormat.js,npm/tocbot@4.36.4/dist/tocbot.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script defer src="/app.min.js?baseurl=&register=true" ></script> <script defer src="https://www.googletagmanager.com/gtag/js?id=G-7S51SBJX8F"></script> <script> document.addEventListener('DOMContentLoaded', () => { window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-7S51SBJX8F'); }); </script><body><aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end"><header class="profile-wrapper"> <a href="/" id="avatar" class="rounded-circle"><img src="/assets/img/favicons/android-chrome-512x512.png" width="112" height="112" alt="avatar" onerror="this.style.display='none'"></a> <a class="site-title d-block" href="/">Nathaniel Varona</a><p class="site-subtitle fst-italic mb-0">I am a DevOps and SRE focussing on Cloud Computing and Distributed Systems.</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class="nav"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle"></i> <span>ABOUT</span> </a></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"> <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/nathanielvarona" aria-label="github" target="_blank" rel="noopener noreferrer" > <i class="fab fa-github"></i> </a> <a href="https://twitter.com/nathanielvarona" aria-label="twitter" target="_blank" rel="noopener noreferrer" > <i class="fab fa-x-twitter"></i> </a> <a href="https://www.linkedin.com/in/nathanielvarona" aria-label="linkedin" target="_blank" rel="noopener noreferrer" > <i class="fab fa-linkedin"></i> </a></div></aside><div id="main-wrapper" class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id="topbar-wrapper" class="flex-shrink-0" aria-label="Top Bar"><div id="topbar" class="d-flex align-items-center justify-content-between px-lg-3 h-100" ><nav id="breadcrumb" aria-label="Breadcrumb"> <span> <a href="/">Home</a> </span> <span>Managing Enterprise VPN using Pritunl API CLI</span></nav><button type="button" id="sidebar-trigger" class="btn btn-link" aria-label="Sidebar"> <i class="fas fa-bars fa-fw"></i> </button><div id="topbar-title"> Post</div><button type="button" id="search-trigger" class="btn btn-link" aria-label="Search"> <i class="fas fa-search fa-fw"></i> </button> <search id="search" class="align-items-center ms-3 ms-lg-0"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..." > </search> <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">Cancel</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class="px-1" data-toc="true"><header><h1 data-toc-skip>Managing Enterprise VPN using Pritunl API CLI</h1><div class="post-meta text-muted"> <span> Posted <time data-ts="1681747200" data-df="ll" data-bs-toggle="tooltip" data-bs-placement="bottom" > Apr 18, 2023 </time> </span> <span> Updated <time data-ts="1724819543" data-df="ll" data-bs-toggle="tooltip" data-bs-placement="bottom" > Aug 28, 2024 </time> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://twitter.com/nathanielvarona">Nathaniel Varona</a> </em> </span><div> <span class="readtime" data-bs-toggle="tooltip" data-bs-placement="bottom" title="785 words" > <em>4 min</em> read</span></div></div></div></header><div id="toc-bar" class="d-flex align-items-center justify-content-between invisible"> <span class="label text-truncate">Managing Enterprise VPN using Pritunl API CLI</span> <button type="button" class="toc-trigger btn me-1"> <i class="fa-solid fa-list-ul fa-fw"></i> </button></div><button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm"> <span class="label ps-2 pe-1">Contents</span> <i class="fa-solid fa-angle-right fa-fw"></i> </button> <dialog id="toc-popup" class="p-0"><div class="header d-flex flex-row align-items-center justify-content-between"><div class="label text-truncate py-2 ms-4">Managing Enterprise VPN using Pritunl API CLI</div><button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75"> <i class="fas fa-close"></i> </button></div><div id="toc-popup-content" class="px-4 py-3 pb-4"></div></dialog><div class="content"><h2 id="introduction"><span class="me-2">Introduction</span><a href="#introduction" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>When you are in the advanced field of system administration, you always think, “Is there a CLI feature for this?” in a scenario where simple tasks like adding or modifying having a repeating process are relatively less attractive throughout the period. With the help of the Command line interface and mild scripting, we can accomplish primary things in terms of automating simple repetitive tasks.</p><p>In this post, we can manage an enterprise VPN using the Pritunl API CLI, such as creating, retrieving, and updating users and a few other CLI features.</p><h2 id="quick-demo"><span class="me-2">Quick Demo</span><a href="#quick-demo" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p><a href="/assets/posts/managing-enterprise-vpn-using-pritunl-api-cli/pritunl-api-cli-quick-demo-dark.gif" class="popup img-link dark shimmer"><img src="/assets/posts/managing-enterprise-vpn-using-pritunl-api-cli/pritunl-api-cli-quick-demo-dark.gif" alt="AWS Console Access Portal" class="shadow" loading="lazy"></a> <a href="/assets/posts/managing-enterprise-vpn-using-pritunl-api-cli/pritunl-api-cli-quick-demo-light.gif" class="popup img-link light shimmer"><img src="/assets/posts/managing-enterprise-vpn-using-pritunl-api-cli/pritunl-api-cli-quick-demo-light.gif" alt="AWS Console Access Portal" class="shadow" loading="lazy"></a></p><blockquote><p><em>Recorded with <a href="https://asciinema.org/a/586481/?autoplay=1&amp;preload=1&amp;loop=1&amp;theme=asciinema" target="_blank" class="dark">asciinema</a> <a href="https://asciinema.org/a/586481/?autoplay=1&amp;preload=1&amp;loop=1&amp;theme=solarized-light" target="_blank" class="light">asciinema</a></em></p></blockquote><h2 id="installation"><span class="me-2">Installation</span><a href="#installation" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Pritunl API CLI is already part of the <a href="https://pypi.org/project/pritunl-api/" target="_blank">Pritunl API Client for Python</a>; to enable it, we all need to allow extra CLI during the PIP installation. The PIP extra <code class="language-plaintext highlighter-rouge">cli</code> will install the necessary libraries for our CLI feature.</p><h3 id="install-via-pypi-package"><span class="me-2">Install via PyPI Package</span><a href="#install-via-pypi-package" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash nolineno highlighter-rouge" file="CLI Feature Installation"><div class="code-header"> <span data-label-text="CLI Feature Installation"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>pip <span class="nb">install </span>pritunl-api[cli]
+</pre></table></code></div></div><p>The CLI will automatically be available in your distribution <code class="language-plaintext highlighter-rouge">$PATH</code>. Try to validate that the CLI distribution is accessible by invoking the command.</p><div class="language-bash nolineno highlighter-rouge" file="Validate CLI Installation"><div class="code-header"> <span data-label-text="Validate CLI Installation"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre><td class="rouge-code"><pre>pritunl-api-cli <span class="nt">--help</span>
+Usage: pritunl-api-cli <span class="o">[</span>OPTIONS] COMMAND <span class="o">[</span>ARGS]...
+
+  Pritunl API CLI
+
+Options:
+  <span class="nt">--version</span>  Show the version and exit.
+  <span class="nt">--help</span>     Show this message and exit.
+
+Commands:
+  api
+  user
+
+pritunl-api-cli <span class="nt">--version</span>
+pritunl-api-cli, version x.x.x
+</pre></table></code></div></div><h2 id="configuration"><span class="me-2">Configuration</span><a href="#configuration" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><h3 id="api-endpoint-and-credentials-setup"><span class="me-2">API Endpoint and Credentials Setup</span><a href="#api-endpoint-and-credentials-setup" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>Set the Pritunl API CLI environment variables.</p><div class="language-bash nolineno highlighter-rouge" file="Required Environment Variables"><div class="code-header"> <span data-label-text="Required Environment Variables"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre><span class="nb">export </span><span class="nv">PRITUNL_BASE_URL</span><span class="o">=</span><span class="s2">"https://vpn.domain.tld/"</span>
+<span class="nb">export </span><span class="nv">PRITUNL_API_TOKEN</span><span class="o">=</span><span class="s2">"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</span>
+<span class="nb">export </span><span class="nv">PRITUNL_API_SECRET</span><span class="o">=</span><span class="s2">"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"</span>
+</pre></table></code></div></div><p>Test the connection to see if the API endpoint and credentials work correctly.</p><div class="language-bash nolineno highlighter-rouge" file="CLI API Endpoint Connection Test"><div class="code-header"> <span data-label-text="CLI API Endpoint Connection Test"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre><td class="rouge-code"><pre>pritunl-api-cli api status
+<span class="o">{</span>
+  <span class="s2">"org_count"</span>: 1,
+  <span class="s2">"users_online"</span>: 0,
+  <span class="s2">"user_count"</span>: 0,
+  <span class="s2">"servers_online"</span>: 1,
+  <span class="s2">"server_count"</span>: 1,
+  <span class="s2">"hosts_online"</span>: 1,
+  <span class="s2">"host_count"</span>: 1,
+  <span class="s2">"server_version"</span>: <span class="s2">"1.30.3354.99"</span>,
+  <span class="s2">"current_host"</span>: <span class="s2">"XXXXXXXXXXXXXXXXXXXXXX"</span>,
+  <span class="s2">"public_ip"</span>: <span class="s2">"###.###.###.###"</span>,
+  <span class="s2">"local_networks"</span>: <span class="o">[</span>
+    <span class="s2">"172.31.80.0/20"</span>
+  <span class="o">]</span>,
+  <span class="s2">"notification"</span>: <span class="s2">""</span>
+<span class="o">}</span>
+</pre></table></code></div></div><h2 id="cli-usage"><span class="me-2">CLI Usage</span><a href="#cli-usage" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><h3 id="user-feature"><span class="me-2">User Feature</span><a href="#user-feature" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><div class="language-bash nolineno highlighter-rouge" file="User Feature"><div class="code-header"> <span data-label-text="User Feature"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre>pritunl-api-cli user
+Usage: pritunl-api-cli user <span class="o">[</span>OPTIONS] COMMAND <span class="o">[</span>ARGS]...
+
+Options:
+  <span class="nt">--help</span>  Show this message and exit.
+
+Commands:
+  create
+  delete
+  get
+  update
+</pre></table></code></div></div><h4 id="create-user"><span class="me-2">Create User</span><a href="#create-user" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><div class="language-bash nolineno highlighter-rouge" file="Create User"><div class="code-header"> <span data-label-text="Create User"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre>pritunl-api-cli user create
+Usage: pritunl-api-cli user create <span class="o">[</span>OPTIONS]
+
+  Pritunl Create User
+
+Options:
+  <span class="nt">--org-name</span> TEXT
+  <span class="nt">--user-name</span> TEXT
+  <span class="nt">--user-email</span> TEXT
+  <span class="nt">--pin</span> TEXT
+  <span class="nt">--yubikey-id</span> TEXT
+  <span class="nt">--from-csv</span> PATH
+  <span class="nt">--help</span>             Show this message and exit.
+</pre></table></code></div></div><h5 id="create-a-single-user"><span class="me-2">Create a Single User</span><a href="#create-a-single-user" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-bash nolineno highlighter-rouge" file="Create a Single User"><div class="code-header"> <span data-label-text="Create a Single User"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>pritunl-api-cli user create <span class="se">\</span>
+  <span class="nt">--org-name</span> pritunl-dev <span class="se">\</span>
+  <span class="nt">--user-name</span> john.doe <span class="se">\</span>
+  <span class="nt">--user-email</span> john.doe@domain.tld
+</pre></table></code></div></div><h5 id="create-a-sets-of-user-from-csv-file"><span class="me-2">Create a sets of User from CSV file</span><a href="#create-a-sets-of-user-from-csv-file" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-bash nolineno highlighter-rouge" file="Create a sets of User from CSV file"><div class="code-header"> <span data-label-text="Create a sets of User from CSV file"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre>pritunl-api-cli user create <span class="se">\</span>
+  <span class="nt">--from-csv</span> ./users.csv
+</pre></table></code></div></div><h4 id="get-user"><span class="me-2">Get User</span><a href="#get-user" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><div class="language-bash nolineno highlighter-rouge" file="Get User"><div class="code-header"> <span data-label-text="Get User"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre>pritunl-api-cli user get
+Usage: pritunl-api-cli user get <span class="o">[</span>OPTIONS]
+
+  Pritunl Get User
+
+Options:
+  <span class="nt">--org-name</span> TEXT
+  <span class="nt">--user-name</span> TEXT
+  <span class="nt">--all-users</span>
+  <span class="nt">--show-advanced-details</span>
+  <span class="nt">--help</span>                   Show this message and exit.
+</pre></table></code></div></div><h5 id="get-a-single-user"><span class="me-2">Get a Single User</span><a href="#get-a-single-user" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-bash nolineno highlighter-rouge" file="Get a Single User"><div class="code-header"> <span data-label-text="Get a Single User"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>pritunl-api-cli user get <span class="se">\</span>
+  <span class="nt">--org-name</span> pritunl-dev <span class="se">\</span>
+  <span class="nt">--user-name</span> john.doe
+</pre></table></code></div></div><p>Showing the advanced details of a user in JSON output.</p><div class="language-bash nolineno highlighter-rouge" file="Showing the advanced details of a user"><div class="code-header"> <span data-label-text="Showing the advanced details of a user"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>pritunl-api-cli user get <span class="se">\</span>
+  <span class="nt">--org-name</span> pritunl-dev <span class="se">\</span>
+  <span class="nt">--user-name</span> john.doe <span class="se">\</span>
+  <span class="nt">--show-advanced-details</span>
+</pre></table></code></div></div><h5 id="get-users-from-an-organization"><span class="me-2">Get Users from an Organization</span><a href="#get-users-from-an-organization" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-bash nolineno highlighter-rouge" file="Get Users from an Organization"><div class="code-header"> <span data-label-text="Get Users from an Organization"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>pritunl-api-cli user get <span class="se">\</span>
+  <span class="nt">--org-name</span> pritunl-dev <span class="se">\</span>
+  <span class="nt">--all-users</span>
+</pre></table></code></div></div><p>Showing the advanced details of a users in JSON output.</p><div class="language-bash nolineno highlighter-rouge" file="Get Users from an Organization showing Advanced Details"><div class="code-header"> <span data-label-text="Get Users from an Organization showing Advanced Details"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>pritunl-api-cli user get <span class="se">\</span>
+  <span class="nt">--org-name</span> pritunl-dev <span class="se">\</span>
+  <span class="nt">--all-users</span> <span class="se">\</span>
+  <span class="nt">--show-advanced-details</span>
+</pre></table></code></div></div><h4 id="update-user"><span class="me-2">Update User</span><a href="#update-user" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><div class="language-bash nolineno highlighter-rouge" file="Update User"><div class="code-header"> <span data-label-text="Update User"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre>pritunl-api-cli user update
+Usage: pritunl-api-cli user update <span class="o">[</span>OPTIONS]
+
+  Pritunl Update User
+
+Options:
+  <span class="nt">--org-name</span> TEXT
+  <span class="nt">--user-name</span> TEXT
+  <span class="nt">--pin</span> TEXT
+  <span class="nt">--yubikey-id</span> TEXT
+  <span class="nt">--disable</span> / <span class="nt">--enable</span>
+  <span class="nt">--help</span>                Show this message and exit.
+</pre></table></code></div></div><h5 id="update-a-user-for-a-new-pin"><span class="me-2">Update a User for a New PIN</span><a href="#update-a-user-for-a-new-pin" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-bash nolineno highlighter-rouge" file="Update a User for a New PIN"><div class="code-header"> <span data-label-text="Update a User for a New PIN"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>pritunl-api-cli user update <span class="se">\</span>
+  <span class="nt">--org-name</span> pritunl-dev <span class="se">\</span>
+  <span class="nt">--user-name</span> john.doe <span class="se">\</span>
+  <span class="nt">--pin</span> 123456
+</pre></table></code></div></div><h5 id="disable-a-user"><span class="me-2">Disable a User</span><a href="#disable-a-user" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-bash nolineno highlighter-rouge" file="Disable a User"><div class="code-header"> <span data-label-text="Disable a User"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>pritunl-api-cli user update <span class="se">\</span>
+  <span class="nt">--org-name</span> pritunl-dev <span class="se">\</span>
+  <span class="nt">--user-name</span> john.doe <span class="se">\</span>
+  <span class="nt">--disable</span>
+</pre></table></code></div></div><h5 id="enable-a-user"><span class="me-2">Enable a User</span><a href="#enable-a-user" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-bash nolineno highlighter-rouge" file="Enable a User"><div class="code-header"> <span data-label-text="Enable a User"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre>pritunl-api-cli user update <span class="se">\</span>
+  <span class="nt">--org-name</span> pritunl-dev <span class="se">\</span>
+  <span class="nt">--user-name</span> john.doe <span class="se">\</span>
+  <span class="nt">--enable</span>
+</pre></table></code></div></div><h4 id="delete-user"><span class="me-2">Delete User</span><a href="#delete-user" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><div class="language-bash nolineno highlighter-rouge" file="Delete User"><div class="code-header"> <span data-label-text="Delete User"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre>pritunl-api-cli user delete
+Usage: pritunl-api-cli user delete <span class="o">[</span>OPTIONS]
+
+  Pritunl Delete User
+
+Options:
+  <span class="nt">--org-name</span> TEXT
+  <span class="nt">--user-name</span> TEXT
+  <span class="nt">--help</span>            Show this message and exit.
+</pre></table></code></div></div><h5 id="delete-a-user"><span class="me-2">Delete a User</span><a href="#delete-a-user" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-bash nolineno highlighter-rouge" file="Delete a User"><div class="code-header"> <span data-label-text="Delete a User"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre><td class="rouge-code"><pre>pritunl-api-cli user delete <span class="se">\</span>
+  <span class="nt">--org-name</span> pritunl-dev <span class="se">\</span>
+  <span class="nt">--user-name</span> john.doe
+</pre></table></code></div></div><h2 id="connection-and-testing"><span class="me-2">Connection and Testing</span><a href="#connection-and-testing" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><h3 id="pritunl-client"><span class="me-2">Pritunl Client</span><a href="#pritunl-client" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>Install the <a href="https://client.pritunl.com/" target="_blank">Pritunl Client</a> for our <a href="#create-user">Pritunl API CLI created</a> users and the keys it generated.</p><h4 id="pritunl-client-cli"><span class="me-2">Pritunl Client CLI</span><a href="#pritunl-client-cli" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>The <a href="https://docs.pritunl.com/docs/command-line-interface" target="_blank">pritunl-client</a> package is available when installing the <code class="language-plaintext highlighter-rouge">Pritunl Client</code></p><h5 id="add-a-profile"><span class="me-2">Add a Profile</span><a href="#add-a-profile" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-bash nolineno highlighter-rouge" file="Add a Profile"><div class="code-header"> <span data-label-text="Add a Profile"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>pritunl-client add pritunl://vpn.domain.tld/ku/8u2KK6rZ
+</pre></table></code></div></div><h5 id="list-of-profiles"><span class="me-2">List of Profiles</span><a href="#list-of-profiles" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-bash nolineno highlighter-rouge" file="List of Profiles"><div class="code-header"> <span data-label-text="List of Profiles"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>pritunl-client list
+</pre></table></code></div></div><h5 id="start-a-connection"><span class="me-2">Start a Connection</span><a href="#start-a-connection" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-bash nolineno highlighter-rouge" file="Start a Connection"><div class="code-header"> <span data-label-text="Start a Connection"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>pritunl-client start zmza0w2jbqidtp5f <span class="nt">--mode</span> wg
+</pre></table></code></div></div><h5 id="stop-a-connection"><span class="me-2">Stop a Connection</span><a href="#stop-a-connection" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-bash nolineno highlighter-rouge" file="Delete a User"><div class="code-header"> <span data-label-text="Delete a User"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>pritunl-client stop zmza0w2jbqidtp5f
+</pre></table></code></div></div><h5 id="delete-a-profile"><span class="me-2">Delete a Profile</span><a href="#delete-a-profile" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h5><div class="language-bash nolineno highlighter-rouge" file="Delete a Profile"><div class="code-header"> <span data-label-text="Delete a Profile"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>pritunl-client delete zmza0w2jbqidtp5f
+</pre></table></code></div></div><h3 id="validate-connection"><span class="me-2">Validate Connection</span><a href="#validate-connection" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>This a neat and quick way to test if your connection routes to your Local ISP or in the VPN Cloud Vendor.</p><div class="language-bash nolineno highlighter-rouge" file="Validate Connection"><div class="code-header"> <span data-label-text="Validate Connection"><i class="far fa-file-code fa-fw"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre><td class="rouge-code"><pre>curl <span class="nt">-s</span> ipinfo.io/<span class="sb">`</span>curl <span class="nt">-s</span> ifconfig.me<span class="sb">`</span> | jq
+</pre></table></code></div></div></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw me-1"></i> <a href="/categories/pritunl/">Pritunl</a>, <a href="/categories/enterprise-vpn/">Enterprise VPN</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw me-1"></i> <a href="/tags/python-library/" class="post-tag no-text-decoration" >Python Library</a> <a href="/tags/api-client/" class="post-tag no-text-decoration" >API Client</a> <a href="/tags/cli-tool/" class="post-tag no-text-decoration" >CLI Tool</a> <a href="/tags/pritunl-vpn/" class="post-tag no-text-decoration" >Pritunl VPN</a> <a href="/tags/openvpn/" class="post-tag no-text-decoration" >OpenVPN</a> <a href="/tags/wireguard/" class="post-tag no-text-decoration" >WireGuard</a></div><div class=" post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2 " ><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper d-flex align-items-center"> <span class="share-label text-muted">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=Managing%20Enterprise%20VPN%20using%20Pritunl%20API%20CLI%20-%20Nathaniel%20Varona&url=https%3A%2F%2Fnathaniel.varona.me%2Fposts%2Fmanaging-enterprise-vpn-using-pritunl-api-cli%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter"> <i class="fa-fw fab fa-x-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=Managing%20Enterprise%20VPN%20using%20Pritunl%20API%20CLI%20-%20Nathaniel%20Varona&u=https%3A%2F%2Fnathaniel.varona.me%2Fposts%2Fmanaging-enterprise-vpn-using-pritunl-api-cli%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://www.linkedin.com/feed/?shareActive=true&shareUrl=https%3A%2F%2Fnathaniel.varona.me%2Fposts%2Fmanaging-enterprise-vpn-using-pritunl-api-cli%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Linkedin" aria-label="Linkedin"> <i class="fa-fw fab fa-linkedin"></i> </a> <button id="copy-link" aria-label="Copy link" class="btn small" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy link" data-title-succeed="Link copied successfully!" > <i class="fa-fw fas fa-link pe-none fs-6"></i> </button> </span></div></div></div></article></main><aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 text-muted"><div class="access"><section id="access-lastmod"><h2 class="panel-heading">Recently Updated</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"> <a href="/posts/google-workspace-as-external-idp-for-aws-iam-identity-center/">Google Workspace as an external IdP for AWS IAM Identity Center</a><li class="text-truncate lh-lg"> <a href="/posts/automatic-provisioning-of-aws-iam-identity-center-users-and-groups-from-google-workspace-directory-using-sso-sync/">Automatic Provisioning of AWS IAM Identity Center Users and Groups from Google Workspace Directory using SSO Sync</a><li class="text-truncate lh-lg"> <a href="/posts/managing-aws-iam-identity-center-multi-account-permissions-using-terraform-and-github-actions/">Managing AWS IAM Identity Center Multi-Account Permissions using Terraform and GitHub Actions</a><li class="text-truncate lh-lg"> <a href="/posts/managing-enterprise-vpn-using-pritunl-api-cli/">Managing Enterprise VPN using Pritunl API CLI</a><li class="text-truncate lh-lg"> <a href="/posts/build-a-pritunl-slack-slash-commands-with-a-serverless-backend/">Build a Pritunl Slack Slash Commands with a Serverless Backend</a></ul></section><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/amazon-web-services-aws/">Amazon Web Services (AWS)</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws-iam-identity-center/">AWS IAM Identity Center</a> <a class="post-tag btn btn-outline-primary" href="/tags/single-sign-on-sso/">Single Sign-On (SSO)</a> <a class="post-tag btn btn-outline-primary" href="/tags/api-client/">API Client</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws-sam/">AWS SAM</a> <a class="post-tag btn btn-outline-primary" href="/tags/google-cloud-platform-gcp/">Google Cloud Platform (GCP)</a> <a class="post-tag btn btn-outline-primary" href="/tags/google-workspace-gsuite/">Google Workspace (GSuite)</a> <a class="post-tag btn btn-outline-primary" href="/tags/openvpn/">OpenVPN</a> <a class="post-tag btn btn-outline-primary" href="/tags/pritunl-vpn/">Pritunl VPN</a> <a class="post-tag btn btn-outline-primary" href="/tags/python-library/">Python Library</a></div></section></div><div class="toc-border-cover z-3"></div><section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4"><h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2><nav id="toc"></nav></section></aside></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4"><aside id="related-posts" aria-labelledby="related-label"><h3 class="mb-4" id="related-label">Further Reading</h3><nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4"><article class="col"> <a href="/posts/build-a-pritunl-slack-slash-commands-with-a-serverless-backend/" class="post-preview card h-100"><div class="card-body"> <time data-ts="1682611200" data-df="ll" > Apr 28, 2023 </time><h4 class="pt-0 my-2">Build a Pritunl Slack Slash Commands with a Serverless Backend</h4><div class="text-muted"><p>Introduction For self-service automation, Slack is one of the leading platforms that it can provide. As DevOps, which also considers company administrators, we ensure team members, such as Develop...</p></div></div></a></article></nav></aside><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"> <a href="/posts/managing-aws-iam-identity-center-multi-account-permissions-using-terraform-and-github-actions/" class="btn btn-outline-primary" aria-label="Older" ><p>Managing AWS IAM Identity Center Multi-Account Permissions using Terraform and GitHub Actions</p></a> <a href="/posts/build-a-pritunl-slack-slash-commands-with-a-serverless-backend/" class="btn btn-outline-primary" aria-label="Newer" ><p>Build a Pritunl Slack Slash Commands with a Serverless Backend</p></a></nav><footer aria-label="Site Info" class=" d-flex flex-column justify-content-center text-muted flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3 " ><p>© <time>2025</time> <a href="https://twitter.com/nathanielvarona">Nathaniel Varona</a>. <span data-bs-toggle="tooltip" data-bs-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author." >Some rights reserved.</span></p><p>Using the <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> theme <a data-bs-toggle="tooltip" data-bs-placement="top" title="v7.4.1" href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener" >Chirpy</a>.</p></footer></div></div><div id="search-result-wrapper" class="d-flex justify-content-center d-none"><div class="col-11 content"><div id="search-hints"><section><h2 class="panel-heading">Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"> <a class="post-tag btn btn-outline-primary" href="/tags/amazon-web-services-aws/">Amazon Web Services (AWS)</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws-iam-identity-center/">AWS IAM Identity Center</a> <a class="post-tag btn btn-outline-primary" href="/tags/single-sign-on-sso/">Single Sign-On (SSO)</a> <a class="post-tag btn btn-outline-primary" href="/tags/api-client/">API Client</a> <a class="post-tag btn btn-outline-primary" href="/tags/aws-sam/">AWS SAM</a> <a class="post-tag btn btn-outline-primary" href="/tags/google-cloud-platform-gcp/">Google Cloud Platform (GCP)</a> <a class="post-tag btn btn-outline-primary" href="/tags/google-workspace-gsuite/">Google Workspace (GSuite)</a> <a class="post-tag btn btn-outline-primary" href="/tags/openvpn/">OpenVPN</a> <a class="post-tag btn btn-outline-primary" href="/tags/pritunl-vpn/">Pritunl VPN</a> <a class="post-tag btn btn-outline-primary" href="/tags/python-library/">Python Library</a></div></section></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><aside aria-label="Scroll to Top"> <button id="back-to-top" type="button" class="btn btn-lg btn-box-shadow"> <i class="fas fa-angle-up"></i> </button></aside></div><div id="mask" class="d-none position-fixed w-100 h-100 z-1"></div><aside id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-animation="true" data-bs-autohide="false" ><div class="toast-header"> <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close" ></button></div><div class="toast-body text-center pt-0"><p class="px-2 mb-3">A new version of content is available.</p><button type="button" class="btn btn-primary" aria-label="Update"> Update </button></div></aside><script> (function () { const themeMapper = Theme.getThemeMapper('light', 'dark_dimmed'); const initTheme = themeMapper[Theme.visualState]; let lang = 'en';if (lang.length > 2 && !lang.startsWith('zh')) { lang = lang.slice(0, 2); } let giscusAttributes = { src: 'https://giscus.app/client.js', 'data-repo': 'nathanielvarona/nathanielvarona.github.io', 'data-repo-id': 'R_kgDOI9wegw', 'data-category': 'Comments', 'data-category-id': 'DIC_kwDOI9weg84CUvHZ', 'data-mapping': 'pathname', 'data-strict' : '0', 'data-reactions-enabled': '1', 'data-emit-metadata': '0', 'data-theme': initTheme, 'data-input-position': 'bottom', 'data-lang': lang, 'data-loading': 'lazy', crossorigin: 'anonymous', async: '' }; let giscusNode = document.createElement('script'); Object.entries(giscusAttributes).forEach(([key, value]) => giscusNode.setAttribute(key, value) ); const $footer = document.querySelector('footer'); $footer.insertAdjacentElement("beforebegin", giscusNode); addEventListener('message', (event) => { if (event.source === window && event.data && event.data.id === Theme.ID) { const newTheme = themeMapper[Theme.visualState]; const message = { setConfig: { theme: newTheme } }; const giscus = document.getElementsByClassName('giscus-frame')[0].contentWindow; giscus.postMessage({ giscus: message }, 'https://giscus.app'); } }); })(); </script> <script> document.addEventListener('DOMContentLoaded', () => { SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<article class="px-1 px-sm-2 px-lg-4 px-xl-0"><header><h2><a href="{url}">{title}</a></h2><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div></header><p>{content}</p></article>', noResultsText: '<p class="mt-5">Oops! No results found.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); }); </script>
